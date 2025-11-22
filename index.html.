@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEGESTA - Innovative Solutions</title>
+    
+    <!-- Menggunakan Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Menggunakan Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+
+    <!-- Konfigurasi Tailwind & Custom Styles -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'segesta-dark': '#120824',
+                        'segesta-purple': '#4A2065',
+                        'segesta-pink': '#D45D79',
+                        'segesta-orange': '#EA9085',
+                        'segesta-blue': '#6E57E0',
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        mono: ['Space Grotesk', 'monospace'],
+                    },
+                    backgroundImage: {
+                        'hero-gradient': 'linear-gradient(180deg, #2E1C4E 0%, #6E4555 50%, #120824 100%)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom CSS untuk efek yang sulit dilakukan hanya dengan utility classes */
+        body {
+            background-color: #120824;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Efek Glassmorphism (Kaca Transparan) */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        /* Simulasi "Air Terjun" Tengah */
+        .waterfall-stream {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, 
+                rgba(110, 231, 255, 0) 0%, 
+                rgba(110, 231, 255, 0.8) 20%, 
+                rgba(110, 231, 255, 0.5) 80%, 
+                rgba(110, 231, 255, 0) 100%
+            );
+            box-shadow: 0 0 15px rgba(110, 231, 255, 0.6);
+            z-index: 0;
+        }
+
+        /* Animasi Air Jatuh */
+        .waterfall-particle {
+            position: absolute;
+            left: 50%;
+            width: 2px;
+            height: 20px;
+            background: #fff;
+            opacity: 0.7;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translate(-50%, -100px); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translate(-50%, 100vh); opacity: 0; }
+        }
+
+        /* Typography Glow */
+        .text-glow {
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Background Image Layers untuk Parallax */
+        .bg-layer {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            background-size: cover;
+            background-position: center;
+            mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+        }
+
+        /* Hide Scrollbar for clean look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #120824;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4A2065;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D45D79;
+        }
+    </style>
+</head>
+<body class="relative">
+
+    <!-- Garis "Air Terjun" Tengah (Visual Connector) -->
+    <div class="fixed top-0 left-0 w-full h-full pointer-events-none z-0 overflow-hidden">
+        <div class="waterfall-stream hidden md:block"></div>
+        <!-- Partikel animasi air -->
+        <div id="particles"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 top-0 transition-all duration-300 p-6" id="navbar">
+        <div class="max-w-7xl mx-auto flex justify-between items-center px-4 md:px-8 glass-panel rounded-full py-3">
+            <div class="text-xl font-mono font-bold tracking-widest">SEGESTA</div>
+            <div class="hidden md:flex space-x-8 text-sm font-medium tracking-wide">
+                <a href="#home" class="hover:text-segesta-pink transition-colors">OUR STORY</a>
+                <a href="#mission" class="hover:text-segesta-pink transition-colors">MISSION</a>
+                <a href="#advantages" class="hover:text-segesta-pink transition-colors">CLIENTS</a>
+                <a href="#contact" class="hover:text-segesta-pink transition-colors">CONTACT</a>
+            </div>
+            <button class="md:hidden text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+        <!-- Background Gradient Landscape Simulation -->
+        <div class="absolute inset-0 bg-gradient-to-b from-[#2b1055] via-[#7597de] to-[#24243e] opacity-80 z-[-2]"></div>
+        
+        <!-- Mountain/City Silhouette Placeholder using CSS Shapes -->
+        <div class="absolute bottom-0 w-full h-1/2 bg-gradient-to-t from-[#000] to-transparent z-[-1]"></div>
+        <img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?q=80&w=2000&auto=format&fit=crop" 
+             alt="Cyberpunk City" 
+             class="absolute bottom-0 w-full h-3/4 object-cover object-bottom opacity-40 mix-blend-overlay z-[-2]">
+
+        <div class="text-center z-10 relative px-4">
+            <div class="mb-4 animate-pulse">
+                <svg class="w-12 h-12 mx-auto text-white mb-4 opacity-80" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2L2 22h20L12 2zm0 4l6 13H6l6-13z"/>
+                </svg>
+            </div>
+            <h1 class="text-6xl md:text-9xl font-bold tracking-[0.2em] text-white text-glow mb-2" style="font-family: 'Outfit', sans-serif;">
+                SEGESTA
+            </h1>
+            <p class="text-lg md:text-2xl font-light tracking-[0.5em] uppercase text-segesta-orange opacity-90">
+                Innovative Solutions
+            </p>
+        </div>
+        
+        <!-- Gradient Fade at bottom -->
+        <div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#120824] to-transparent z-10"></div>
+    </section>
+
+    <!-- MISSION SECTION -->
+    <section id="mission" class="relative py-24 md:py-32 px-6 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center relative z-10">
+            
+            <!-- Left Content -->
+            <div class="glass-panel p-10 rounded-2xl transform transition duration-700 hover:scale-[1.02]" data-aos="fade-right">
+                <h2 class="text-4xl md:text-5xl font-bold mb-8 leading-tight">
+                    Our <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-segesta-pink to-purple-400">Mission</span>
+                </h2>
+                <p class="text-gray-300 leading-relaxed mb-6">
+                    At Segesta, our purpose is to empower digital relationships through mobility. By designing and developing custom apps and mobile web-apps, we act as a guide - leading our clients through the process of building complex digital products.
+                </p>
+                <p class="text-gray-300 leading-relaxed mb-8">
+                    We believe in a future where technology seamlessly integrates with humanity, creating efficient, beautiful, and powerful solutions.
+                </p>
+                <button class="px-8 py-3 bg-white text-segesta-dark font-bold rounded hover:bg-segesta-pink hover:text-white transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+                    LET'S BUILD
+                </button>
+            </div>
+
+            <!-- Right Visual -->
+            <div class="relative h-[500px] rounded-2xl overflow-hidden shadow-2xl border border-white/10" data-aos="fade-left">
+                <div class="absolute inset-0 bg-gradient-to-br from-purple-900/80 to-blue-900/80 z-10 mix-blend-multiply"></div>
+                <!-- Image representing the "Glass Building" interior from video -->
+                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1600&auto=format&fit=crop" 
+                     alt="Modern Interior" 
+                     class="absolute inset-0 w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700">
+                
+                <!-- Decorative UI Elements -->
+                <div class="absolute bottom-10 left-10 z-20 glass-panel p-4 rounded-lg">
+                    <div class="flex space-x-2 mb-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <div class="h-2 w-32 bg-white/20 rounded mb-2"></div>
+                    <div class="h-2 w-20 bg-white/20 rounded"></div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ADVANTAGES SECTION -->
+    <section id="advantages" class="relative py-24 md:py-32 px-6">
+        <!-- Background decorative blob -->
+        <div class="absolute top-1/2 left-0 w-96 h-96 bg-segesta-pink rounded-full blur-[150px] opacity-20 pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center relative z-10">
+            
+            <!-- Left Visual (Tech/Machinery Vibe) -->
+            <div class="relative h-[500px] rounded-2xl overflow-hidden order-2 md:order-1 border border-white/10" data-aos="fade-right">
+                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1600&auto=format&fit=crop" 
+                     alt="Tech Lab" 
+                     class="absolute inset-0 w-full h-full object-cover opacity-80">
+                <div class="absolute inset-0 bg-gradient-to-t from-segesta-dark to-transparent"></div>
+                
+                <!-- Holographic overlay simulation -->
+                <div class="absolute inset-0 border-2 border-cyan-400/30 m-4 rounded border-dashed opacity-50"></div>
+                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-cyan-300 font-mono text-xs tracking-widest opacity-70">
+                    SYSTEM ONLINE // 98%
+                </div>
+            </div>
+
+            <!-- Right Content -->
+            <div class="glass-panel p-10 rounded-2xl order-1 md:order-2" data-aos="fade-left">
+                <h2 class="text-4xl md:text-5xl font-bold mb-10 text-right leading-tight">
+                    Our <br><span class="text-transparent bg-clip-text bg-gradient-to-l from-segesta-orange to-pink-500">Advantages</span>
+                </h2>
+                
+                <div class="space-y-8">
+                    <div class="group">
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-segesta-orange transition-colors">We've Been There.</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            In just over four years we've founded our own start-up, built over 1000 app projects for our clients, and created proprietary software.
+                        </p>
+                    </div>
+                    <div class="w-full h-[1px] bg-white/10"></div>
+                    <div class="group">
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-segesta-orange transition-colors">Boldly Transparent.</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            We know how scary it is for complex custom applications to go over budget. We don't want that to happen to you.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- MODEL FOR SUCCESS SECTION -->
+    <section class="relative py-32 px-6 bg-gradient-to-t from-black to-[#120824]">
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <h2 class="text-4xl md:text-6xl font-bold mb-8">A Model For Success</h2>
+            <p class="text-gray-400 max-w-2xl mx-auto mb-12">
+                We've crafted a modular approach to conceptualizing, designing, implementing, and - most importantly - launching custom software projects over time.
+            </p>
+            
+            <!-- Grid of Icons/Features -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+                <div class="glass-panel p-6 rounded-xl hover:bg-white/10 transition-colors border border-segesta-purple/50">
+                    <div class="text-segesta-orange text-4xl mb-4">01</div>
+                    <h4 class="font-bold mb-2">Concept</h4>
+                    <p class="text-xs text-gray-500">Defining the core functionality and user needs.</p>
+                </div>
+                <div class="glass-panel p-6 rounded-xl hover:bg-white/10 transition-colors border border-segesta-pink/50">
+                    <div class="text-segesta-pink text-4xl mb-4">02</div>
+                    <h4 class="font-bold mb-2">Design</h4>
+                    <p class="text-xs text-gray-500">Visualizing the interface with cutting-edge aesthetics.</p>
+                </div>
+                <div class="glass-panel p-6 rounded-xl hover:bg-white/10 transition-colors border border-segesta-blue/50">
+                    <div class="text-segesta-blue text-4xl mb-4">03</div>
+                    <h4 class="font-bold mb-2">Deploy</h4>
+                    <p class="text-xs text-gray-500">Launching scalable and robust code to the world.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="relative bg-black py-10 px-6 border-t border-white/10">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-4 md:mb-0">
+                <h2 class="text-2xl font-bold tracking-widest">SEGESTA</h2>
+                <p class="text-xs text-gray-500 mt-1">© 2024 Innovative Solutions Inc.</p>
+            </div>
+            <div class="flex space-x-6">
+                <a href="#" class="text-gray-400 hover:text-white">Instagram</a>
+                <a href="#" class="text-gray-400 hover:text-white">LinkedIn</a>
+                <a href="#" class="text-gray-400 hover:text-white">Twitter</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script untuk Interaksi dan Animasi -->
+    <script>
+        // 1. Membuat partikel air terjun
+        const particlesContainer = document.getElementById('particles');
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.classList.add('waterfall-particle');
+            
+            // Randomize speed and delay
+            particle.style.animationDuration = Math.random() * 2 + 2 + 's';
+            particle.style.animationDelay = Math.random() * 2 + 's';
+            
+            particlesContainer.appendChild(particle);
+
+            // Remove after animation to keep DOM clean
+            setTimeout(() => {
+                particle.remove();
+            }, 4000);
+        }
+        
+        // Create particles interval (Desktop only for performance)
+        if(window.innerWidth > 768) {
+            setInterval(createParticle, 200);
+        }
+
+        // 2. Scroll Reveal Animation (Simple Intersection Observer)
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                }
+            });
+        }, observerOptions);
+
+        // Target elements that need animation
+        const animatedElements = document.querySelectorAll('[data-aos]');
+        animatedElements.forEach(el => {
+            el.classList.add('transition-all', 'duration-1000', 'opacity-0', 'translate-y-10'); // Initial state
+            observer.observe(el);
+        });
+
+        // 3. Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('py-2');
+                nav.classList.remove('py-6');
+            } else {
+                nav.classList.add('py-6');
+                nav.classList.remove('py-2');
+            }
+        });
+    </script>
+</body>
+</html>
+
